@@ -15,14 +15,23 @@
     (first xs)
     (my-last (rest xs))))
 
-(defn max-element [a-seq]
-  :-)
+(defn max-element [[x & xs]]
+  (if (nil? xs)
+      x
+      (max x (max-element xs))))
 
-(defn seq-max [seq-1 seq-2]
-  [:-])
+(defn seq-max [xs ys]
+  (if (> (count xs) (count ys))
+      xs
+      ys))
 
-(defn longest-sequence [a-seq]
-  [:-])
+(defn longest-sequence [xs]
+  (if
+    (empty? xs)
+    nil
+    (seq-max (first xs)
+             (longest-sequence (rest xs)))))
+
 
 (defn my-filter [pred? a-seq]
   [:-])
