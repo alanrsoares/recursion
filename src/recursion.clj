@@ -1,19 +1,21 @@
 (ns recursion)
 
-(defn product [[x & xs]]
-  (if (nil? x)
+(defn product [xs]
+  (if (empty? xs)
       1
-      (* x
-         (product xs))))
+      (* (first xs)
+         (product (rest xs)))))
 
-(defn singleton? [[x & xs]]
-  (nil? xs))
+(defn singleton? [xs]
+  (and (not (empty? xs))
+       (empty? (rest xs))))
 
 (defn my-last [xs]
-  (if
-    (singleton? xs)
-    (first xs)
-    (my-last (rest xs))))
+  (if (empty? xs)
+      nil
+    (if (singleton? xs)
+        (first xs)
+        (my-last (rest xs)))))
 
 (defn max-element [[x & xs]]
   (if (nil? xs)
@@ -26,18 +28,25 @@
       ys))
 
 (defn longest-sequence [xs]
-  (if
-    (empty? xs)
-    nil
-    (seq-max (first xs)
-             (longest-sequence (rest xs)))))
-
+  (if (empty? xs)
+      nil
+      (seq-max (first xs)
+               (longest-sequence (rest xs)))))
 
 (defn my-filter [pred? a-seq]
-  [:-])
+  (let [x  (first a-seq)
+        xs (rest a-seq)]
+    (if (empty? a-seq)
+      []
+      (if (pred? x)
+        (cons x (my-filter pred? xs))
+        (my-filter pred? xs)))))
 
 (defn sequence-contains? [elem a-seq]
-  :-)
+  (let [p? #(= elem %)]
+    (and (not (empty? a-seq))
+         (or (p? (first a-seq))
+             (sequence-contains? elem (rest a-seq))))))
 
 (defn my-take-while [pred? a-seq]
   [:-])
