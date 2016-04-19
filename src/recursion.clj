@@ -49,10 +49,22 @@
              (sequence-contains? elem (rest a-seq))))))
 
 (defn my-take-while [pred? a-seq]
-  [:-])
+  (let [x  (first a-seq)
+        xs (rest a-seq)]
+    (if (empty? a-seq)
+      []
+      (if (pred? x)
+        (cons x (my-take-while pred? xs))
+        []))))
 
 (defn my-drop-while [pred? a-seq]
-  [:-])
+  (let [x  (first a-seq)
+        xs (rest a-seq)]
+    (if (empty? a-seq)
+      []
+      (if (pred? x)
+        (my-drop-while pred? xs)
+          a-seq))))
 
 (defn seq= [a-seq b-seq]
   :-)
@@ -113,4 +125,3 @@
 
 (defn powerset [a-set]
   [:-])
-
