@@ -66,29 +66,56 @@
         (my-drop-while pred? xs)
           a-seq))))
 
-(defn seq= [a-seq b-seq]
-  :-)
+(defn seq= [xs ys]
+  (cond
+    (empty? xs)    (empty? ys)
+    (empty? ys)    false
+    (= (first xs)
+       (first ys)) (seq= (rest xs)
+                            (rest ys))
+    :else             false))
 
-(defn my-map [f seq-1 seq-2]
-  [:-])
+(defn my-map [f xs ys]
+  (if (or (empty? xs)
+          (empty? ys))
+    []
+    (cons (f (first xs)
+             (first ys))
+          (my-map f (rest xs)
+                    (rest ys)))))
 
 (defn power [n k]
-  :-)
+  (if (zero? k)
+    1
+    (* n (power n (dec k)))))
 
 (defn fib [n]
-  :-)
+  (cond
+    (zero? n) 0
+    (= n 1)   1
+    :else     (+ (fib (- n 1))
+                 (fib (- n 2)))))
 
-(defn my-repeat [how-many-times what-to-repeat]
-  [:-])
+(defn my-repeat [n x]
+  (if (<= n 0)
+    []
+    (cons x
+      (my-repeat (dec n) x))))
 
-(defn my-range [up-to]
-  [:-])
+(defn my-range [n]
+  (if (zero? n)
+    []
+    (cons (dec n) (my-range (dec n)))))
 
-(defn tails [a-seq]
-  [:-])
+(defn tails [xs]
+  (if (empty? xs)
+    '(())
+    (cons xs (tails (rest xs)))))
 
-(defn inits [a-seq]
-  [:-])
+(defn inits [xs]
+  (if (empty? xs)
+    [[]]
+    (conj (inits (drop-last xs)) xs)))
 
 (defn rotations [a-seq]
   [:-])
